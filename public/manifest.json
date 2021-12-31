@@ -1,0 +1,23 @@
+{
+  "name": "NoName Wallet",
+  "description": "NoName Chrome Extension Wallet",
+  "author": "NoName",
+  "version": "0.1",
+  "icons": {
+    "16": "./nn-logo.ico",
+    "32": "./nn-logo.ico",
+    "48": "./nn-logo.ico",
+    "128": "./nn-logo.ico"
+  },
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "browser_action": {
+    "default_title": "NoName Chrome Extension Wallet",
+    "default_popup": "./index.html"
+  },
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
+
