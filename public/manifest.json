@@ -4,10 +4,10 @@
   "author": "NoName",
   "version": "0.1",
   "icons": {
-    "16": "./nn-logo.ico",
-    "32": "./nn-logo.ico",
-    "48": "./nn-logo.ico",
-    "128": "./nn-logo.ico"
+    "16": "./icons/16.ico",
+    "32": "./icons/32.ico",
+    "48": "./icons/48.ico",
+    "128": "./icons/128.ico"
   },
   "permissions": [
     "storage",
