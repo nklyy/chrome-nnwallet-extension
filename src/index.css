@@ -11,8 +11,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /*background: linear-gradient(120deg, #37293d 0%, #1e2d36 100%) fixed;*/
   background: #1f1f1f fixed;
-  width: 350px;
-  height: 550px;
 }
 
 code {
