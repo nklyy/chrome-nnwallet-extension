@@ -66,10 +66,15 @@ class Welcome extends React.Component<{}, IState>{
     }
 
     render() {
+        const password = this.state.password;
         return (
             <div className="min-h-screen sm:w-full p-2 flex flex-col justify-center items-center w-350 h-550">
                 <div className="mb-2">
                     <h1 className="text-3xl font-bold text-white">Welcome</h1>
+                </div>
+                <div>
+                    <input value={password}
+                           onChange={this.handleChange} />
                 </div>
                 <div className="m-1 sm:w-2/4 w-full p-2">
                     {/*bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-600*/}
