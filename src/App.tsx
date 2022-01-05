@@ -6,6 +6,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import CreateWallet from "./componrnts/Create-wallet";
 import ImportWallet from "./componrnts/Import-wallet";
 import Error from "./componrnts/Error";
+import Unlock from "./componrnts/Unlock";
+import useExpiredWalletTime from "./hooks/expiredWalletTime";
 
 function App() {
   function PrivateRoute({ children, redirectTo }: any) {
@@ -16,6 +18,11 @@ function App() {
   function PrivateHome({ children }: any) {
     const { existUser } = useExist();
     return existUser ? children : <Navigate to={"/"} />;
+  }
+
+  function Lock({ children }: any) {
+    const { expired } = useExpiredWalletTime();
+    return !expired ? children : <Navigate to={"/unlock"} />;
   }
 
   return (
@@ -33,7 +40,9 @@ function App() {
         path={"/home"}
         element={
           <PrivateHome>
-            <Wallet />
+            <Lock>
+              <Wallet />
+            </Lock>
           </PrivateHome>
         }
       />
@@ -55,6 +64,8 @@ function App() {
           </PrivateRoute>
         }
       />
+
+      <Route path={"/unlock"} element={<Unlock />} />
 
       <Route path={"*"} element={<Error />} />
     </Routes>
