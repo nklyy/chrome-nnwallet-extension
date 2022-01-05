@@ -28,3 +28,22 @@ export function encryptKey(password: string, text: string) {
     return new Error(e.message);
   }
 }
+
+// Encrypts plain text into cipher text
+export function encryptTest(plainText: string) {
+  const ALGORITHM = "aes-256-cbc";
+  const CIPHER_KEY = "abcdefghijklmnopqrstuvwxyz012345"; // Same key used in Golang
+  const BLOCK_SIZE = 16;
+
+  const iv = crypto.randomBytes(BLOCK_SIZE);
+  const cipher = crypto.createCipheriv(ALGORITHM, CIPHER_KEY, iv);
+  let cipherText;
+  try {
+    cipherText = cipher.update(plainText, "utf8", "hex");
+    cipherText += cipher.final("hex");
+    cipherText = iv.toString("hex") + cipherText;
+  } catch (e) {
+    cipherText = null;
+  }
+  return cipherText;
+}
