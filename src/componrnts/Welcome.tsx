@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { decryptTest, encryptTest } from "../services/crypto";
+import { sendValue } from "../services/api/sendValue";
 
 export default function Welcome() {
   const [password, setPassword] = useState("");
@@ -9,12 +10,14 @@ export default function Welcome() {
     setPassword(event.target.value);
   };
 
-  const onClickSendButton = () => {
-    const encText = encryptTest(password);
-    console.log(encText);
+  const onClickSendButton = async () => {
+    const encValue = encryptTest(password);
+    console.log("encrypted Value: ", encValue);
 
-    const decText = decryptTest(encText);
-    console.log(decText);
+    const encryptedPasswordResponse = await sendValue(encValue || "");
+
+    const decText = decryptTest(encryptedPasswordResponse);
+    console.log("decrypted Value:",  decText);
   };
 
   return (
