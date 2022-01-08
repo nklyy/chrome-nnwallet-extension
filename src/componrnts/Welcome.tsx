@@ -1,34 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { decryptTest, encryptTest } from "../services/crypto";
-import { sendValue } from "../services/api/sendValue";
 
 export default function Welcome() {
-  const [password, setPassword] = useState("");
-
-  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const onClickSendButton = async () => {
-    const encValue = encryptTest(password);
-    console.log("encrypted Value: ", encValue);
-
-    const encryptedPasswordResponse = await sendValue(encValue || "");
-
-    const decText = decryptTest(encryptedPasswordResponse);
-    console.log("decrypted Value:",  decText);
-  };
-
   return (
     <div className="min-h-screen sm:w-full p-2 flex flex-col justify-center items-center w-350 h-550">
-      {/*-----------------------------------------------------*/}
-      <input onChange={onChangePassword} value={password} type="text" />
-      <button onClick={onClickSendButton} className="bg-neutral-300 m-2 p-2">
-        send encrypt data
-      </button>
-      {/*-----------------------------------------------------*/}
-
       <div className="mb-2">
         <h1 className="text-3xl font-bold text-white">Welcome</h1>
       </div>
