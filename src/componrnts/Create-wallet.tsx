@@ -1,11 +1,47 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { createMnemonicAndSeed } from "../services/wallets/mnemonic";
+import { createWallet } from "../services/wallets/create";
+import { walletList } from "../services/wallets/walletList";
+import { encryptKey } from "../services/crypto";
+// import {
+//   setMnemonic,
+//   setExistUser,
+//   setWallets,
+//   setExpiredTime,
+// } from "../services/store/setData";
 
 export default function CreateWallet() {
   const [password, setPassword] = useState("");
 
   const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+  };
+
+  const onSubmitPassword = async () => {
+    const { mnemonic, seed } = await createMnemonicAndSeed();
+    const arrayWallets = [];
+
+    for (const coinName of walletList) {
+      const wallet = createWallet(seed, coinName);
+
+      if (wallet) {
+        const encEey = encryptKey(password, wallet.privateKey);
+        arrayWallets.push({ coinName, address: wallet.address, key: encEey });
+      } else {
+        console.log("Something wrong with create wallet");
+      }
+    }
+    console.log(mnemonic);
+    //
+    // const encMnemonic: any = encryptKey(password, mnemonic);
+    // await setWallets(arrayWallets);
+    // await setMnemonic(encMnemonic);
+    // await setExistUser(true);
+    //
+    // const time = new Date();
+    // time.setMinutes(time.getMinutes() + 10);
+    // await setExpiredTime(time.getTime());
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Welcome from "./componrnts/Welcome";
 import Wallet from "./componrnts/Wallet";
 import useExist from "./hooks/existUser";
