@@ -27,3 +27,19 @@ export function decryptKey(encryptedData: IEncryptedData, password: string) {
     return new Error(e.message);
   }
 }
+
+// Decrypts cipher text into plain text
+export function decryptTest(cipherText: any) {
+  const ALGORITHM = "aes-256-cbc";
+  const CIPHER_KEY = "abcdefghijklmnopqrstuvwxyz012345"; // Same key used in Golang
+  const BLOCK_SIZE = 16;
+
+  const contents = Buffer.from(cipherText, "hex");
+  const iv = contents.slice(0, BLOCK_SIZE);
+  const textBytes = contents.slice(BLOCK_SIZE);
+
+  const decipher: any = crypto.createDecipheriv(ALGORITHM, CIPHER_KEY, iv);
+  let decrypted = decipher.update(textBytes, "hex", "utf8");
+  decrypted += decipher.final("utf8");
+  return decrypted;
+}
