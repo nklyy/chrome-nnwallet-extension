@@ -4,17 +4,17 @@ import { createMnemonicAndSeed } from "../services/wallets/mnemonic";
 import { createWallet } from "../services/wallets/create";
 import { walletList } from "../services/wallets/walletList";
 import { encryptKey } from "../services/crypto";
-// import {
-//   setMnemonic,
-//   setExistUser,
-//   setWallets,
-//   setExpiredTime,
-// } from "../services/store/setData";
+import {
+   setMnemonic,
+   setExistUser,
+   setWallets,
+   setExpiredTime,
+ } from "../services/store/setData";
 
 export default function CreateWallet() {
   const [password, setPassword] = useState("");
 
-  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePassword = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
@@ -33,15 +33,14 @@ export default function CreateWallet() {
       }
     }
     console.log(mnemonic);
-    //
-    // const encMnemonic: any = encryptKey(password, mnemonic);
-    // await setWallets(arrayWallets);
-    // await setMnemonic(encMnemonic);
-    // await setExistUser(true);
-    //
-    // const time = new Date();
-    // time.setMinutes(time.getMinutes() + 10);
-    // await setExpiredTime(time.getTime());
+
+     await setWallets(arrayWallets);
+     await setMnemonic(mnemonic);
+     await setExistUser(true);
+
+     const time = new Date();
+     time.setMinutes(time.getMinutes() + 10);
+     await setExpiredTime(time.getTime());
   };
 
   return (
@@ -71,6 +70,7 @@ export default function CreateWallet() {
           <button
             className="text-lg font-bold w-full px-3 py-3 text-white rounded-lg bg-indigo-800 hover:bg-indigo-700"
             type="submit"
+            onSubmit={onSubmitPassword}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
